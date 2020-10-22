@@ -6,7 +6,6 @@
 
     <EditText
         android:id="@+id/mail"
-        android:text=""
         android:hint="@string/edit_mail"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -15,7 +14,6 @@
 
     <EditText
         android:id="@+id/password"
-        android:text=""
         android:hint="@string/edit_password"
         android:layout_centerInParent="true"
         android:layout_below="@id/mail"
