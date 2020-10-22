@@ -40,25 +40,12 @@ public class FragmentOfRV extends Fragment {
 
     public class MyViewHolder extends RecyclerView.ViewHolder
     {
-        public final TextView number;
+
         public MyViewHolder(@NonNull View itemView)
         {
             super(itemView);
-            number = itemView.findViewById(R.id.number_from_rv);
 
-            itemView.setOnClickListener(new View.OnClickListener()
-            {
-                @Override
-                public void onClick(View v)
-                {
-                    Fragment_of_number NewNumber = new Fragment_of_number();
-                    NewNumber.SetArguments(((TextView) v.findViewById(R.id.number_from_rv)).getText().toString()
-                            ,((TextView) v.findViewById(R.id.number_from_rv)).getCurrentTextColor());
-                    getFragmentManager().beginTransaction()
-                            .replace(R.id.container_of_fragments, NewNumber)
-                            .addToBackStack(Fragment_of_number.class.getSimpleName()).commit();
-                }
-            });
+
         }
 
     }
@@ -66,13 +53,11 @@ public class FragmentOfRV extends Fragment {
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position)
     {
-        DataSource.NumberModel element = Data.get(position);
-        holder.number.setText(String.valueOf(element.getNumber()));
-        holder.number.setTextColor(element.getColor());
+
     }
 
     @Override
-    public int getItemCount() {return Data.size();}
+    public int getItemCount() {return 0;}
 
     private class MyAdapter extends RecyclerView.Adapter<MyViewHolder>
     {
