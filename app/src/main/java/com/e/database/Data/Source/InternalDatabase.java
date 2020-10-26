@@ -2,35 +2,49 @@ package com.e.database.Data.Source;
 
 import android.content.Context;
 
+import androidx.annotation.NonNull;
 import androidx.room.Database;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
+import androidx.sqlite.db.SupportSQLiteDatabase;
 
-import com.e.database.Data.Models.Settings;
-import com.e.database.Data.Models.TextMessages;
 import com.e.database.Data.Models.User;
+import com.e.database.Data.Source.Dao.SettingsDao;
+import com.e.database.Data.Source.Dao.TextMessagesDao;
+import com.e.database.Data.Source.Dao.UserDao;
 
-@Database(entities = {Settings.class, TextMessages.class, User.class}, version = 1, exportSchema = false)
-
+@Database(entities = {User.class}, version = 1)
 public abstract class InternalDatabase extends RoomDatabase {
-    private static InternalDatabase database;
-    private static String DATABASE_NAME = "internalDatabase";
-    public synchronized static InternalDatabase getInstance(Context context)
 
-    {
-        if(database== null)
-        {
-            database = Room.databaseBuilder(context.getApplicationContext()
-            ,InternalDatabase.class,DATABASE_NAME)
-            .fallbackToDestructiveMigration().build();
-        }
+    private static InternalDatabase instance;
 
-        return database;
-
-
-    }
     public abstract UserDao userDao();
-    //public SettingsDao settingsDao();
-    //public TextMessagesDao textMessagesDao();
+
+    public abstract SettingsDao settingsDao();
+
+    public abstract TextMessagesDao textMessagesDao();
+
+
+
+    public static synchronized InternalDatabase getInstance(Context context)
+    {
+        if(instance == null)
+        {
+            instance = Room.databaseBuilder(context.getApplicationContext(), InternalDatabase.class, "internal_database")
+                    .fallbackToDestructiveMigration()
+                    .build();
+        }
+        return instance;
+    }
+
+    private static InternalDatabase.Callback roomCallback = new RoomDatabase.Callback()
+    {
+        @Override
+        public void onCreate(@NonNull SupportSQLiteDatabase db) {
+            super.onCreate(db);
+        }
+    };
+
+
 
 }

@@ -3,16 +3,19 @@ package com.e.database.Data.Models;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
-import java.io.Serializable;
+@Entity(tableName = "user")
+public class User {
 
-@Entity(tableName = "User")
-public class User implements Serializable {
     @PrimaryKey(autoGenerate = true)
     private long id;
-
     private String mail;
-
     private String password;
+
+    public User(long id, String mail, String password) {
+        this.id = id;
+        this.mail = mail;
+        this.password = password;
+    }
 
     public long getId() {
         return id;
@@ -26,15 +29,8 @@ public class User implements Serializable {
         return mail;
     }
 
-    public void setMail(String mail) {
-        this.mail = mail;
-    }
-
     public String getPassword() {
         return password;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
-    }
 }
